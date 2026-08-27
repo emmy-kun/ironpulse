@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@100..900&display=swap");
+
+@import "tailwindcss";
+
+/* ================================
+   IRONPULSE V2 DESIGN SYSTEM
+================================ */
+
+:root {
+  --background: #0b0b0d;
+  --surface: #16181d;
+  --card: #1e2128;
+
+  --primary: #3b82f6;
+  --primary-hover: #60a5fa;
+
+  --text: #ffffff;
+  --secondary: #a1a1aa;
+
+  --border: rgba(255,255,255,.08);
+}
+
+/* Lenis owns scroll smoothing; native smooth-scroll would fight its
+   per-frame scrollTop writes, so it's force-disabled while active. */
+html.lenis.lenis-smooth{
+  scroll-behavior:auto !important;
+}
+
+html.lenis.lenis-stopped{
+  overflow:hidden;
+}
+
+body{
+  margin:0;
+  overflow-x:hidden;
+
+  background:var(--background);
+  color:var(--text);
+
+  font-family:"Inter",sans-serif;
+
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+button{
+  cursor:pointer;
+}
+
+::selection{
+  background:#3b82f6;
+  color:white;
+}
+
+::-webkit-scrollbar{
+  width:8px;
+}
+
+::-webkit-scrollbar-track{
+  background:#0b0b0d;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#2f2f35;
+  border-radius:999px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background:#3b82f6;
+}
+
+/* Fonts */
+
+.heading{
+  font-family:"Anton",sans-serif;
+  letter-spacing:.02em;
+}
+
+.body{
+  font-family:"Inter",sans-serif;
+}
