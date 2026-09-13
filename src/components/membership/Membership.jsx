@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Check, Star } from "lucide-react";
-import QRCode from "react-qr-code";
 
 import Container from "../ui/Container";
 import SectionHeading from "../ui/SectionHeading";
@@ -14,7 +13,6 @@ import { getSession } from "../../lib/auth";
 
 function Membership() {
   const navigate = useNavigate();
-  const [session, setSession] = useState(() => getSession());
   const [authOpen, setAuthOpen] = useState(false);
   const [pendingPlan, setPendingPlan] = useState(null);
 
@@ -28,8 +26,7 @@ function Membership() {
     }
   };
 
-  const handleAuthenticated = (s) => {
-    setSession(s);
+  const handleAuthenticated = () => {
     setAuthOpen(false);
     if (pendingPlan) {
       navigate(`/checkout/${pendingPlan}`);
@@ -137,21 +134,6 @@ function Membership() {
                 </Button>
               </div>
 
-              {plan.highlighted && (
-                <div className="mt-8 flex items-center gap-4 rounded-2xl border border-white/10 bg-black/20 p-4">
-                  <div className="rounded-lg bg-white p-1.5">
-                    <QRCode
-                      value="https://ironpulse.club/membership/elite"
-                      size={56}
-                    />
-                  </div>
-
-                  <p className="text-xs leading-5 text-zinc-400">
-                    Scan to activate your digital Elite membership card on
-                    the IronPulse app.
-                  </p>
-                </div>
-              )}
             </motion.div>
           ))}
         </div>

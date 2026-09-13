@@ -9,12 +9,14 @@ export function getMembership() {
 }
 
 export function setMembership(plan) {
+  const activatedAt = new Date().toISOString();
   const membership = {
     planId: plan.id,
     planName: plan.name,
     price: plan.price,
     period: plan.period,
-    activatedAt: new Date().toISOString(),
+    activatedAt,
+    memberId: `IP-${plan.id.toUpperCase()}-${Date.parse(activatedAt).toString(36).toUpperCase()}`,
   };
   localStorage.setItem(MEMBERSHIP_KEY, JSON.stringify(membership));
   return membership;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AnimatePresence, motion } from "framer-motion";
 import { Lock, Mail, User, X } from "lucide-react";
@@ -36,19 +36,22 @@ function AuthModal({ open, onClose, onAuthenticated }) {
   useEffect(() => {
     if (!open) return;
 
-    setMode("login");
     reset();
+  }, [open, reset]);
+
+  const handleClose = useCallback(() => {
+    setMode("login");
     setFormError("");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
+    onClose();
+  }, [onClose]);
 
   useEffect(() => {
     if (!open) return;
 
-    const onKeyDown = (e) => e.key === "Escape" && onClose();
+    const onKeyDown = (e) => e.key === "Escape" && handleClose();
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open, onClose]);
+  }, [open, handleClose]);
 
   const submit = (data) => {
     setFormError("");
@@ -73,7 +76,7 @@ function AuthModal({ open, onClose, onAuthenticated }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
-          onClick={onClose}
+          onClick={handleClose}
         >
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.98 }}
@@ -96,7 +99,7 @@ function AuthModal({ open, onClose, onAuthenticated }) {
               </div>
 
               <button
-                onClick={onClose}
+                onClick={handleClose}
                 aria-label="Close"
                 className="text-zinc-500 transition-colors hover:text-white"
               >

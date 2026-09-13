@@ -4,13 +4,35 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
 Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
 ## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# IronPulse
 
-## Expanding the ESLint configuration
+IronPulse is a React and Vite frontend for a premium performance club. It includes the public marketing experience, training program details, member sign-in, membership selection, and a demo checkout flow.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Useful checks:
+
+```bash
+npm run lint
+npm run build
+```
+
+## Membership tiers
+
+- **Essential**: gym floor access, 8 group classes per month, locker room access, and mobile app tracking.
+- **Elite**: unlimited classes, two coaching sessions per month, Recovery Lab access, the performance dashboard, and priority booking.
+- **Performance**: everything in Elite, weekly one-on-one coaching, a custom nutrition plan, priority recovery access, and quarterly performance reviews.
+
+The purchased plan and its entitlements are shown on the checkout success screen and stored locally for this demo.
+
+## Current demo boundaries
+
+Authentication and membership state use browser `localStorage`. Checkout simulates payment processing and does not charge a card. Before production, replace these pieces with a server-backed auth system and a payment provider such as Stripe Checkout or Payment Element. Never store passwords or payment details in browser storage.

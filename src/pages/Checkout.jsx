@@ -21,6 +21,7 @@ function Checkout() {
   const [session, setSession] = useState(() => getSession());
   const [authOpen, setAuthOpen] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [membership, setMembershipState] = useState(null);
 
   useEffect(() => {
     if (!plan) {
@@ -33,7 +34,8 @@ function Checkout() {
   const handlePurchase = async () => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        setMembership(plan);
+        const activatedMembership = setMembership(plan);
+        setMembershipState(activatedMembership);
         setSuccess(true);
         resolve();
       }, 2200);
@@ -72,7 +74,11 @@ function Checkout() {
         {!session ? (
           <AuthPrompt onOpenAuth={() => setAuthOpen(true)} />
         ) : success ? (
-          <SuccessView planName={plan.name} />
+          <SuccessView
+            memberName={session.name}
+            membership={membership}
+            features={plan.features}
+          />
         ) : (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

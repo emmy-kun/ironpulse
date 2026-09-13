@@ -1,9 +1,17 @@
 import { scrollToSection } from "../../lib/lenis";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function ScrollLink({ to, offset, className = "", children, onClick, ...props }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const handleClick = (e) => {
     e.preventDefault();
-    scrollToSection(to, offset);
+    if (location.pathname === "/") {
+      scrollToSection(to, offset);
+    } else {
+      navigate(`/#${to}`);
+    }
     onClick?.(e);
   };
 
