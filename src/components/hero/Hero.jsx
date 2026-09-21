@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse";
@@ -6,6 +7,8 @@ import { MouseParallaxContainer, MouseParallaxChild } from "react-parallax-mouse
 import Container from "../ui/Container";
 import Button from "../ui/Button";
 import { scrollToSection } from "../../lib/lenis";
+import { getSession } from "../../lib/auth";
+import { getMembership } from "../../lib/membership";
 
 import heroPoster from "../../assets/images/hero.jpg";
 import heroVideo from "../../assets/videos/hero.mp4";
@@ -19,6 +22,20 @@ const stats = [
 
 function Hero() {
   const navigate = useNavigate();
+  const [membership, setMembership] = useState(() => {
+    const session = getSession();
+    return session ? getMembership(session.email) : null;
+  });
+
+  useEffect(() => {
+    const handleMembershipChange = () => {
+      const session = getSession();
+      setMembership(session ? getMembership(session.email) : null);
+    };
+
+    window.addEventListener("ironpulse:membership", handleMembershipChange);
+    return () => window.removeEventListener("ironpulse:membership", handleMembershipChange);
+  }, []);
 
   return (
     <section
@@ -124,10 +141,19 @@ function Hero() {
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
-              <Button size="lg" onClick={() => scrollToSection("membership")}>
-                Join Club
-                <ArrowRight size={18} />
-              </Button>
+              {membership ? (
+                <Link to="/dashboard">
+                  <Button size="lg">
+                    Open Dashboard
+                    <ArrowRight size={18} />
+                  </Button>
+                </Link>
+              ) : (
+                <Button size="lg" onClick={() => scrollToSection("membership")}>
+                  Join Club
+                  <ArrowRight size={18} />
+                </Button>
+              )}
 
               <Button
                 variant="secondary"

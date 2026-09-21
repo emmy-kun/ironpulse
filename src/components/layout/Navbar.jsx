@@ -11,6 +11,7 @@ import ScrollLink from "../ui/ScrollLink";
 import AuthModal from "../auth/AuthModal";
 import { scrollToSection } from "../../lib/lenis";
 import { getSession, logOut } from "../../lib/auth";
+import { getMembership } from "../../lib/membership";
 
 const navLinks = [
   { name: "Programs", to: "programs" },
@@ -28,11 +29,26 @@ function Navbar() {
   const [activeId, setActiveId] = useState("hero");
   const [authOpen, setAuthOpen] = useState(false);
   const [session, setSession] = useState(() => getSession());
+  const [membership, setMembership] = useState(() => {
+    const currentSession = getSession();
+    return currentSession ? getMembership(currentSession.email) : null;
+  });
 
   const handleLogout = () => {
     logOut();
     setSession(null);
+    setMembership(null);
   };
+
+  useEffect(() => {
+    const handleMembershipChange = () => {
+      const currentSession = getSession();
+      setMembership(currentSession ? getMembership(currentSession.email) : null);
+    };
+
+    window.addEventListener("ironpulse:membership", handleMembershipChange);
+    return () => window.removeEventListener("ironpulse:membership", handleMembershipChange);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -160,9 +176,15 @@ function Navbar() {
                 </button>
               )}
 
-              <Button onClick={() => scrollToSection("membership")}>
-                Join Club
-              </Button>
+              {membership ? (
+                <Link to="/dashboard">
+                  <Button>Open Dashboard</Button>
+                </Link>
+              ) : (
+                <Button onClick={() => scrollToSection("membership")}>
+                  Join Club
+                </Button>
+              )}
             </div>
 
             {/* Mobile Button */}
@@ -264,15 +286,21 @@ function Navbar() {
                   </button>
                 )}
 
-                <Button
-                  className="mt-6 w-full"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    scrollToSection("membership");
-                  }}
-                >
-                  Join Club
-                </Button>
+                {membership ? (
+                  <Link to="/dashboard" onClick={() => setMenuOpen(false)}>
+                    <Button className="mt-6 w-full">Open Dashboard</Button>
+                  </Link>
+                ) : (
+                  <Button
+                    className="mt-6 w-full"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      scrollToSection("membership");
+                    }}
+                  >
+                    Join Club
+                  </Button>
+                )}
               </div>
             </Container>
           </motion.div>
@@ -282,7 +310,10 @@ function Navbar() {
       <AuthModal
         open={authOpen}
         onClose={() => setAuthOpen(false)}
-        onAuthenticated={setSession}
+        onAuthenticated={(nextSession) => {
+          setSession(nextSession);
+          setMembership(getMembership(nextSession.email));
+        }}
       />
     </>
   );

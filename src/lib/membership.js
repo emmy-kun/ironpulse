@@ -24,9 +24,11 @@ export function setMembership(plan, owner, paymentMethod = "card") {
     memberId: `IP-${plan.id.toUpperCase()}-${Date.parse(activatedAt).toString(36).toUpperCase()}`,
   };
   localStorage.setItem(MEMBERSHIP_KEY, JSON.stringify(membership));
+  window.dispatchEvent(new Event("ironpulse:membership"));
   return membership;
 }
 
 export function clearMembership() {
   localStorage.removeItem(MEMBERSHIP_KEY);
+  window.dispatchEvent(new Event("ironpulse:membership"));
 }
