@@ -27,9 +27,9 @@ function Hero() {
     >
       {/* Background Video */}
 
-      <div className="absolute inset-0">
+      <div className="absolute inset-x-0 top-0 h-[clamp(220px,62vw,360px)] sm:inset-0 sm:h-auto">
         <video
-          className="h-full w-full object-cover object-center"
+          className="h-full w-full object-cover object-[center_30%] sm:object-center"
           src={heroVideo}
           poster={heroPoster}
           autoPlay

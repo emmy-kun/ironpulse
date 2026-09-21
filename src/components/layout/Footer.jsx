@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { ArrowRight, Check } from "lucide-react";
 import { FaInstagram, FaXTwitter, FaYoutube } from "react-icons/fa6";
 
@@ -103,13 +104,23 @@ function Footer() {
 
               <div className="mt-6 flex flex-col gap-4">
                 {col.links.map((link) => (
-                  <ScrollLink
-                    key={link.name}
-                    to={link.to}
-                    className="w-fit text-sm text-zinc-400 transition-colors duration-300 hover:text-white"
-                  >
-                    {link.name}
-                  </ScrollLink>
+                  link.to === "dashboard" ? (
+                    <Link
+                      key={link.name}
+                      to="/dashboard"
+                      className="w-fit text-sm text-zinc-400 transition-colors duration-300 hover:text-white"
+                    >
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <ScrollLink
+                      key={link.name}
+                      to={link.to}
+                      className="w-fit text-sm text-zinc-400 transition-colors duration-300 hover:text-white"
+                    >
+                      {link.name}
+                    </ScrollLink>
+                  )
                 ))}
               </div>
             </div>

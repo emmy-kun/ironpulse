@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
 import Checkout from "./pages/Checkout";
 import ProgramsPage from "./pages/ProgramsPage";
 import ProgramDetail from "./pages/ProgramDetail";
@@ -35,6 +36,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/checkout/:planId" element={<Checkout />} />
         <Route path="/programs" element={<ProgramsPage />} />
         <Route path="/programs/:programId" element={<ProgramDetail />} />

@@ -16,6 +16,7 @@ function writeUsers(users) {
 function setSession(user) {
   const session = { name: user.name, email: user.email };
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  window.dispatchEvent(new Event("ironpulse:auth"));
   return session;
 }
 
@@ -29,6 +30,7 @@ export function getSession() {
 
 export function logOut() {
   localStorage.removeItem(SESSION_KEY);
+  window.dispatchEvent(new Event("ironpulse:auth"));
 }
 
 export function signUp({ name, email, password }) {

@@ -80,7 +80,7 @@ function SuccessView({ memberName, membership, features }) {
       <div className="mt-8 flex flex-col gap-3">
         <Button
           className="w-full justify-center"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/dashboard")}
         >
           Go to Dashboard <ArrowRight size={17} />
         </Button>

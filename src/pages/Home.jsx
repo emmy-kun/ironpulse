@@ -1,6 +1,5 @@
 import Hero from "../components/hero/Hero";
 import Programs from "../components/programs/Programs";
-import PerformanceDashboard from "../components/dashboard/PerformanceDashboard";
 import Schedule from "../components/schedule/Schedule";
 import Coaches from "../components/coaches/Coaches";
 import Recovery from "../components/recovery/Recovery";
@@ -12,7 +11,6 @@ function Home() {
     <>
       <Hero />
       <Programs />
-      <PerformanceDashboard />
       <Schedule />
       <Coaches />
       <Recovery />

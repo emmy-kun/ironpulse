@@ -31,10 +31,10 @@ function Checkout() {
 
   if (!plan) return null;
 
-  const handlePurchase = async () => {
+  const handlePurchase = async (checkoutData) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const activatedMembership = setMembership(plan);
+        const activatedMembership = setMembership(plan, session, checkoutData.paymentMethod);
         setMembershipState(activatedMembership);
         setSuccess(true);
         resolve();

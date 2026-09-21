@@ -94,10 +94,11 @@ function Navbar() {
 
             <nav className="hidden items-center gap-8 lg:flex">
               {navLinks.map((item) => (
-                <ScrollLink
-                  key={item.name}
-                  to={item.to}
-                  className={`
+                item.to === "dashboard" ? (
+                  <Link
+                    key={item.name}
+                    to="/dashboard"
+                    className={`
                     cursor-pointer
                     text-sm
                     font-medium
@@ -110,10 +111,28 @@ function Navbar() {
                         ? "text-blue-500"
                         : "text-zinc-300"
                     }
-                  `}
-                >
-                  {item.name}
-                </ScrollLink>
+                    `}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <ScrollLink
+                    key={item.name}
+                    to={item.to}
+                    className={`
+                      cursor-pointer
+                      text-sm
+                      font-medium
+                      tracking-wide
+                      transition-all
+                      duration-300
+                      hover:text-white
+                      ${activeId === item.to ? "text-blue-500" : "text-zinc-300"}
+                    `}
+                  >
+                    {item.name}
+                  </ScrollLink>
+                )
               ))}
             </nav>
 
@@ -183,11 +202,12 @@ function Navbar() {
             <Container>
               <div className="flex flex-col py-8">
                 {navLinks.map((item) => (
-                  <ScrollLink
-                    key={item.name}
-                    to={item.to}
-                    onClick={() => setMenuOpen(false)}
-                    className="
+                  item.to === "dashboard" ? (
+                    <Link
+                      key={item.name}
+                      to="/dashboard"
+                      onClick={() => setMenuOpen(false)}
+                      className="
                       border-b
                       border-white/5
                       py-4
@@ -195,9 +215,26 @@ function Navbar() {
                       transition
                       hover:text-blue-500
                     "
-                  >
-                    {item.name}
-                  </ScrollLink>
+                    >
+                      {item.name}
+                    </Link>
+                  ) : (
+                    <ScrollLink
+                      key={item.name}
+                      to={item.to}
+                      onClick={() => setMenuOpen(false)}
+                      className="
+                      border-b
+                      border-white/5
+                      py-4
+                      text-zinc-300
+                      transition
+                      hover:text-blue-500
+                    "
+                    >
+                      {item.name}
+                    </ScrollLink>
+                  )
                 ))}
 
                 {session ? (

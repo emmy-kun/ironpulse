@@ -1,20 +1,25 @@
 const MEMBERSHIP_KEY = "ironpulse_membership";
 
-export function getMembership() {
+export function getMembership(ownerEmail) {
   try {
-    return JSON.parse(localStorage.getItem(MEMBERSHIP_KEY));
+    const membership = JSON.parse(localStorage.getItem(MEMBERSHIP_KEY));
+    if (ownerEmail && membership?.ownerEmail && membership.ownerEmail !== ownerEmail) return null;
+    return membership;
   } catch {
     return null;
   }
 }
 
-export function setMembership(plan) {
+export function setMembership(plan, owner, paymentMethod = "card") {
   const activatedAt = new Date().toISOString();
   const membership = {
     planId: plan.id,
     planName: plan.name,
     price: plan.price,
     period: plan.period,
+    features: plan.features,
+    ownerEmail: owner?.email ?? null,
+    paymentMethod,
     activatedAt,
     memberId: `IP-${plan.id.toUpperCase()}-${Date.parse(activatedAt).toString(36).toUpperCase()}`,
   };

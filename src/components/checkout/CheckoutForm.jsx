@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CreditCard,
+  Building2,
   MapPin,
   Smartphone,
   User,
@@ -47,7 +48,7 @@ function CheckoutForm({ plan, onSubmit, session }) {
 
   const handleFormSubmit = async (data) => {
     setIsSubmitting(true);
-    await onSubmit(data);
+    await onSubmit({ ...data, paymentMethod });
     setIsSubmitting(false);
   };
 
@@ -76,62 +77,68 @@ function CheckoutForm({ plan, onSubmit, session }) {
           <CreditCard size={18} className="text-zinc-500" />
           Payment Method
         </h3>
-        <div className="mb-6 flex gap-3">
+        <div className="mb-6 grid gap-3 sm:grid-cols-2">
           <button type="button" onClick={() => setPaymentMethod("card")}
-            className={`flex flex-1 items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-medium transition-all ${
+            className={`flex items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-medium transition-all ${
               paymentMethod === "card" ? "border-blue-500/40 bg-blue-500/10 text-white" : "border-white/10 bg-white/5 text-zinc-400 hover:bg-white/10"
             }`}>
             <CreditCard size={16} /> Credit Card
           </button>
-          <button type="button" onClick={() => setPaymentMethod("paypal")}
-            className={`flex flex-1 items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-medium transition-all ${
-              paymentMethod === "paypal" ? "border-blue-500/40 bg-blue-500/10 text-white" : "border-white/10 bg-white/5 text-zinc-400 hover:bg-white/10"
+          <button type="button" onClick={() => setPaymentMethod("transfer")}
+            className={`flex items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-medium transition-all ${
+              paymentMethod === "transfer" ? "border-blue-500/40 bg-blue-500/10 text-white" : "border-white/10 bg-white/5 text-zinc-400 hover:bg-white/10"
             }`}>
-            PayPal
+            <Building2 size={16} /> Bank Transfer
           </button>
         </div>
         <AnimatePresence mode="wait">
           {paymentMethod === "card" && (
             <motion.div key="card" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid gap-5">
               <InputField icon={CreditCard} label="Card Number" placeholder="0000 0000 0000 0000" maxLength={19}
-                error={errors.cardNumber && "Card number is required."} {...register("cardNumber", { required: true })} />
+                error={errors.cardNumber && "Card number is required."} {...register("cardNumber", { required: paymentMethod === "card" })} />
               <div className="grid gap-5 sm:grid-cols-2">
                 <InputField icon={Lock} label="Expiry Date" placeholder="MM / YY" maxLength={7}
-                  error={errors.expiry && "Required."} {...register("expiry", { required: true })} />
+                  error={errors.expiry && "Required."} {...register("expiry", { required: paymentMethod === "card" })} />
                 <InputField icon={Lock} label="CVC" placeholder="123" maxLength={4} type="password"
-                  error={errors.cvc && "Required."} {...register("cvc", { required: true })} />
+                  error={errors.cvc && "Required."} {...register("cvc", { required: paymentMethod === "card" })} />
               </div>
             </motion.div>
           )}
-          {paymentMethod === "paypal" && (
-            <motion.div key="paypal" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6 text-center">
-              <p className="text-sm text-zinc-400">
-                You will be redirected to PayPal to complete your payment securely after clicking <span className="font-semibold text-white">Complete Purchase</span>.
+          {paymentMethod === "transfer" && (
+            <motion.div key="transfer" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+              className="rounded-2xl border border-blue-500/20 bg-blue-500/5 p-6">
+              <p className="text-sm leading-6 text-zinc-300">
+                Transfer <span className="font-bold text-white">{plan.price}{plan.period}</span> using the details below. Your membership will be activated after you confirm the transfer.
               </p>
+              <dl className="mt-5 grid gap-3 text-sm sm:grid-cols-2">
+                <div><dt className="text-zinc-500">Bank</dt><dd className="mt-1 font-semibold text-white">IronPulse Bank</dd></div>
+                <div><dt className="text-zinc-500">Account name</dt><dd className="mt-1 font-semibold text-white">IronPulse Performance Club</dd></div>
+                <div><dt className="text-zinc-500">Account number</dt><dd className="mt-1 font-mono font-semibold text-white">0123456789</dd></div>
+                <div><dt className="text-zinc-500">Reference</dt><dd className="mt-1 font-semibold text-white">{session?.email}</dd></div>
+              </dl>
             </motion.div>
           )}
         </AnimatePresence>
       </section>
 
-      <section>
+      {paymentMethod === "card" && <section>
         <h3 className="mb-6 flex items-center gap-2 text-lg font-bold text-white">
           <MapPin size={18} className="text-zinc-500" />
           Billing Address
         </h3>
         <div className="grid gap-5">
           <InputField icon={MapPin} label="Street Address" placeholder="123 IronPulse Street"
-            error={errors.address && "Address is required."} {...register("address", { required: true })} />
+            error={errors.address && "Address is required."} {...register("address", { required: paymentMethod === "card" })} />
           <div className="grid gap-5 sm:grid-cols-3">
             <InputField icon={MapPin} label="City" placeholder="New York"
-              error={errors.city && "Required."} {...register("city", { required: true })} />
+              error={errors.city && "Required."} {...register("city", { required: paymentMethod === "card" })} />
             <InputField icon={MapPin} label="State" placeholder="NY"
-              error={errors.state && "Required."} {...register("state", { required: true })} />
+              error={errors.state && "Required."} {...register("state", { required: paymentMethod === "card" })} />
             <InputField icon={MapPin} label="ZIP Code" placeholder="10001"
-              error={errors.zip && "Required."} {...register("zip", { required: true })} />
+              error={errors.zip && "Required."} {...register("zip", { required: paymentMethod === "card" })} />
           </div>
         </div>
-      </section>
+      </section>}
 
       <div>
         <label className="flex cursor-pointer items-start gap-3">
@@ -147,9 +154,9 @@ function CheckoutForm({ plan, onSubmit, session }) {
 
       <Button type="submit" size="lg" disabled={isSubmitting} className="w-full justify-center">
         {isSubmitting ? (
-          <><Loader2 size={18} className="animate-spin" /> Processing Payment...</>
+          <><Loader2 size={18} className="animate-spin" /> {paymentMethod === "transfer" ? "Confirming Transfer..." : "Processing Payment..."}</>
         ) : (
-          <><Lock size={18} /> Complete Purchase — {plan.price}{plan.period}</>
+          <>{paymentMethod === "transfer" ? <Building2 size={18} /> : <Lock size={18} />} {paymentMethod === "transfer" ? "I Have Transferred" : `Complete Purchase — ${plan.price}${plan.period}`}</>
         )}
       </Button>
     </form>
