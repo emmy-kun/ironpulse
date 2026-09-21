@@ -16,7 +16,7 @@ function Coaches() {
         <SectionHeading
           eyebrow="Meet The Team"
           title="Coached By The Best."
-          description="Every program is led by specialists with competitive and clinical backgrounds — not generalists."
+          description="Every program is led by specialists with competitive and clinical backgrounds, not generalists."
         />
 
         <div className="mt-16 border-y border-white/10">

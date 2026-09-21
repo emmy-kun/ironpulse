@@ -156,7 +156,7 @@ function CheckoutForm({ plan, onSubmit, session }) {
         {isSubmitting ? (
           <><Loader2 size={18} className="animate-spin" /> {paymentMethod === "transfer" ? "Confirming Transfer..." : "Processing Payment..."}</>
         ) : (
-          <>{paymentMethod === "transfer" ? <Building2 size={18} /> : <Lock size={18} />} {paymentMethod === "transfer" ? "I Have Transferred" : `Complete Purchase — ${plan.price}${plan.period}`}</>
+          <>{paymentMethod === "transfer" ? <Building2 size={18} /> : <Lock size={18} />} {paymentMethod === "transfer" ? "I Have Transferred" : `Complete Purchase: ${plan.price}${plan.period}`}</>
         )}
       </Button>
     </form>

@@ -134,7 +134,7 @@ function Footer() {
             </h4>
 
             <p className="mt-6 text-sm leading-6 text-zinc-400">
-              Training tips, schedule updates and member offers — no spam.
+              Training tips, schedule updates and member offers. No spam.
             </p>
 
             {isSubmitSuccessful ? (

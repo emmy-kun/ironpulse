@@ -41,7 +41,7 @@ function Programs() {
             </h2>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-400">
-              Strength, speed, recovery, nutrition — pick where you start.
+              Strength, speed, recovery, nutrition. Pick where you start.
               Every program is built and coached by specialists, not
               generalists.
             </p>

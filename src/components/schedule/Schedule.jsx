@@ -28,7 +28,7 @@ function Schedule() {
         <SectionHeading
           eyebrow="Weekly Timetable"
           title="Find Your Slot."
-          description="Every session is coached live. Pick a day to see what's running — book your spot up to a week ahead through the member app."
+          description="Every session is coached live. Pick a day to see what's running. Book your spot up to a week ahead through the member app."
         />
 
         {/* Day Tabs */}

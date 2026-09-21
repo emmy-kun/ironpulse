@@ -302,7 +302,7 @@ export const faqs = [
     id: 1,
     question: "Can I try IronPulse before committing to a membership?",
     answer:
-      "Yes — every new member gets a complimentary guided tour and a single full-access day pass to test the gym floor, a class, and the Recovery Lab before choosing a plan.",
+      "Yes. Every new member gets a complimentary guided tour and a single full-access day pass to test the gym floor, a class, and the Recovery Lab before choosing a plan.",
   },
   {
     id: 2,
@@ -314,13 +314,13 @@ export const faqs = [
     id: 3,
     question: "What's included in the Recovery Lab?",
     answer:
-      "Ice bath therapy, infrared sauna, compression boot sessions, sports massage, and guided mobility work — all trackable through your performance dashboard.",
+      "Ice bath therapy, infrared sauna, compression boot sessions, sports massage, and guided mobility work. All are trackable through your performance dashboard.",
   },
   {
     id: 4,
     question: "Can I pause or cancel my membership?",
     answer:
-      "Memberships can be paused for up to 60 days per year and cancelled anytime with 30 days' notice — no lock-in contracts on any plan.",
+      "Memberships can be paused for up to 60 days per year and cancelled anytime with 30 days' notice. There are no lock-in contracts on any plan.",
   },
   {
     id: 5,

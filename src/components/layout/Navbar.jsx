@@ -109,6 +109,12 @@ function Navbar() {
             {/* Desktop Navigation */}
 
             <nav className="hidden items-center gap-8 lg:flex">
+              <Link
+                to="/"
+                className="cursor-pointer text-sm font-medium tracking-wide text-zinc-300 transition-all hover:text-white"
+              >
+                Home
+              </Link>
               {navLinks.map((item) => (
                 item.to === "dashboard" ? (
                   <Link
@@ -223,6 +229,13 @@ function Navbar() {
           >
             <Container>
               <div className="flex flex-col py-8">
+                <Link
+                  to="/"
+                  onClick={() => setMenuOpen(false)}
+                  className="border-b border-white/5 py-4 text-zinc-300 transition hover:text-blue-500"
+                >
+                  Home
+                </Link>
                 {navLinks.map((item) => (
                   item.to === "dashboard" ? (
                     <Link
