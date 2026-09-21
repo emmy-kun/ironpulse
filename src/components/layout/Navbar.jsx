@@ -111,6 +111,7 @@ function Navbar() {
             <nav className="hidden items-center gap-8 lg:flex">
               <Link
                 to="/"
+                onClick={() => window.scrollTo({ top: 0, behavior: "auto" })}
                 className="cursor-pointer text-sm font-medium tracking-wide text-zinc-300 transition-all hover:text-white"
               >
                 Home
@@ -231,7 +232,10 @@ function Navbar() {
               <div className="flex flex-col py-8">
                 <Link
                   to="/"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => {
+                    setMenuOpen(false);
+                    window.scrollTo({ top: 0, behavior: "auto" });
+                  }}
                   className="border-b border-white/5 py-4 text-zinc-300 transition hover:text-blue-500"
                 >
                   Home
